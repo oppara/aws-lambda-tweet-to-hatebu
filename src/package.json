@@ -1,0 +1,17 @@
+{
+  "name": "tweet_to_hatebu",
+  "description": "tweet to hatena bookmark",
+  "version": "0.1.0",
+  "author": "oppara",
+  "dependencies": {
+    "moment": "^2.27.0",
+    "request-compose": "^2.1.0",
+    "request-oauth": "^1.0.0"
+  },
+  "license": "MIT",
+  "main": "app.js",
+  "repository": "https://github.com/oppara/aws-lambda-tweet-to-hatebu",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

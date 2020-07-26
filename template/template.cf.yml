@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: "tweet to hatena bookmark"
+Resources:
+
+  ScheduledRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Description: ScheduledRule
+      ScheduleExpression: 'cron(2 0/3 * * ? *)'
+      State: ENABLED
+      Targets:
+      - Arn: !GetAtt 'Tweet2HatebuLambdaFunction.Arn'
+        Id: TargetFunctionV1
+
+  PermissionForEventsToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref 'Tweet2HatebuLambdaFunction'
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt 'ScheduledRule.Arn'
+
+  LambdaTweet2HatebuRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: /
+      Policies:
+      - PolicyName: root
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: '*'
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      RoleName: LambdaTweet2HatebuRole
+
+  Tweet2HatebuLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code: ../src
+      FunctionName: tweet2hatebu
+      Handler: app.handler
+      Role: !GetAtt LambdaTweet2HatebuRole.Arn
+      Runtime: nodejs12.x
