@@ -2,6 +2,9 @@
 
 Twitter のツイートに  `B!`  があれば、はてブに追加する。
 
+- [Twitter](https://twitter.com/opp_hatena)
+- [はてなブックマーク](https://b.hatena.ne.jp/oppara/bookmark)
+
 ## デプロイ
 
 Lambda, EventBridge (CloudWatch Events) へのデプロイ。
