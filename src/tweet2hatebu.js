@@ -12,6 +12,7 @@ const MAX_TWEETS = 100;
 const TWITTER_API_URL =
   'https://api.twitter.com/1.1/tweets/search/30day/prod.json';
 const HATENA_API_URL = 'https://bookmark.hatenaapis.com/rest/1/my/bookmark';
+const EXCLUDE_TAGS = ['todo', 'instapaper'];
 
 const post2hatebu = (url, tags) => {
   return request({
@@ -48,6 +49,17 @@ const retrieveTweets = () => {
   });
 };
 
+const excludeTags = (tag) => {
+  const tags = typeof tag !== 'undefined' ? tag.split(', ') : '';
+  if (!Array.isArray(tags)) {
+    return tags;
+  }
+
+  return tags.filter((val) => {
+    return !EXCLUDE_TAGS.includes(val);
+  });
+};
+
 exports.tweet2hatebu = async () => {
   const { body } = await retrieveTweets();
   const len = body.results.length;
@@ -58,7 +70,8 @@ exports.tweet2hatebu = async () => {
       return;
     }
     const [url, tag] = tmp.split(' tags: ');
-    const tags = typeof tag !== 'undefined' ? tag.split(', ') : '';
+    // const tags = typeof tag !== 'undefined' ? tag.split(', ') : '';
+    const tags = excludeTags(tag);
     console.log(title + '\t' + url + '\t' + tags);
     await post2hatebu(url, tags);
   }
