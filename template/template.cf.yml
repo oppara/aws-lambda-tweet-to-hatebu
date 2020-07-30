@@ -38,6 +38,7 @@ Resources:
           Statement:
           - Effect: Allow
             Action:
+            - sns:Publish
             - logs:CreateLogGroup
             - logs:CreateLogStream
             - logs:PutLogEvents
