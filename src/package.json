@@ -1,7 +1,7 @@
 {
   "name": "tweet_to_hatebu",
   "description": "tweet to hatena bookmark",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "oppara",
   "dependencies": {
     "moment": "^2.27.0",
