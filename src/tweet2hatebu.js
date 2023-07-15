@@ -11,7 +11,7 @@ const HATENA_API_URL = 'https://bookmark.hatenaapis.com/rest/1/my/bookmark';
 // https://developer.twitter.com/en/docs/twitter-api/v1/tweets/timelines/api-reference/get-statuses-user_timeline
 const TWITTER_API_URL =
   'https://api.twitter.com/1.1/statuses/user_timeline.json';
-const TWEETS_PER_REQUEST = 100;
+const TWEETS_PER_REQUEST = 30;
 const TWITTER_SCREEN_NAME = 'opp_hatena';
 const EXCLUDE_TAGS = ['todo', 'instapaper'];
 
